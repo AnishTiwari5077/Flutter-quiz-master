@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:quiz_app/data/question_data.dart';
-import 'package:quiz_app/question_model.dart';
+import 'package:quiz_app/models/question_model.dart';
 
 import 'result_screen.dart';
 import '../widgets/option_card.dart';

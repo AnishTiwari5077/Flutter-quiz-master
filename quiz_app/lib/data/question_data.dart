@@ -1,14 +1,14 @@
-import 'package:quiz_app/question_model.dart';
+import 'package:quiz_app/models/question_model.dart';
 
 final Map<String, List<Question>> quizData = {
   ' Knowledge': [
     Question(
-      question: 'What is the capital of France?',
-      options: ['Berlin', 'London', 'Paris', 'Madrid'],
-      correctIndex: 2,
+      question: 'What is the capital of Nepal?',
+      options: ['Berlin', 'Kathmandu', 'Paris', 'Madrid'],
+      correctIndex: 1,
     ),
     Question(
-      question: 'How many continents are there?',
+      question: 'How many number are there?',
       options: ['5', '6', '7', '8'],
       correctIndex: 2,
     ),
