@@ -73,8 +73,8 @@ class OptionCard extends StatelessWidget {
         child: InkWell(
           onTap: showAnswer ? null : onTap,
           borderRadius: BorderRadius.circular(12),
-          splashColor: Colors.blue.withOpacity(0.2),
-          highlightColor: Colors.blue.withOpacity(0.1),
+          splashColor: Colors.blue.withValues(alpha: .2),
+          highlightColor: Colors.blue.withValues(alpha: .1),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
@@ -90,7 +90,7 @@ class OptionCard extends StatelessWidget {
                   (showAnswer && isCorrect) || (isSelected && !showAnswer)
                   ? [
                       BoxShadow(
-                        color: getBorderColor().withOpacity(0.3),
+                        color: getBorderColor().withValues(alpha: .3),
                         blurRadius: 8,
                         offset: const Offset(0, 4),
                       ),

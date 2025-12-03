@@ -55,7 +55,7 @@ class ResultScreen extends StatelessWidget {
                       gradient: LinearGradient(
                         colors: [
                           performanceColor,
-                          performanceColor.withOpacity(0.6),
+                          performanceColor.withValues(alpha: .6),
                         ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
@@ -63,7 +63,7 @@ class ResultScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: performanceColor.withOpacity(0.4),
+                          color: performanceColor.withValues(alpha: .4),
                           blurRadius: 20,
                           offset: const Offset(0, 8),
                         ),
@@ -183,10 +183,10 @@ class ResultScreen extends StatelessWidget {
                       elevation: 2,
                       margin: const EdgeInsets.only(bottom: 16),
                       color: isCorrect
-                          ? AppTheme.successColor.withOpacity(0.05)
+                          ? AppTheme.successColor.withValues(alpha: .05)
                           : (isSkipped
-                                ? AppTheme.warningColor.withOpacity(0.05)
-                                : AppTheme.errorColor.withOpacity(0.05)),
+                                ? AppTheme.warningColor.withValues(alpha: .05)
+                                : AppTheme.errorColor.withValues(alpha: .05)),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                         side: BorderSide(

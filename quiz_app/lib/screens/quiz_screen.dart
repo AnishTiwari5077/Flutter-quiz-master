@@ -15,8 +15,7 @@ class QuizScreen extends StatefulWidget {
   State<QuizScreen> createState() => _QuizScreenState();
 }
 
-class _QuizScreenState extends State<QuizScreen>
-    with SingleTickerProviderStateMixin {
+class _QuizScreenState extends State<QuizScreen> {
   late List<Question> questions;
   late List<Question> originalQuestions;
   int currentIndex = 0;
@@ -26,20 +25,14 @@ class _QuizScreenState extends State<QuizScreen>
   Timer? timer;
   int timeLeft = 15;
   List<int?> userAnswers = [];
-  late AnimationController _progressController;
 
   @override
   void initState() {
     super.initState();
     _initializeQuiz();
-    _progressController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
   }
 
   void _initializeQuiz() {
-    // Get original questions and shuffle their options
     originalQuestions = quizData[widget.category]!;
     questions = originalQuestions.map((q) => q.shuffleOptions()).toList();
     startTimer();
@@ -55,7 +48,7 @@ class _QuizScreenState extends State<QuizScreen>
         return;
       }
 
-      if (timeLeft == 0) {
+      if (timeLeft <= 0) {
         t.cancel();
         if (!answered) {
           handleAnswer(null); // Timeout - no answer selected
@@ -83,7 +76,6 @@ class _QuizScreenState extends State<QuizScreen>
 
     timer?.cancel();
 
-    // Wait before moving to next question
     Future.delayed(const Duration(milliseconds: 1500), () {
       if (mounted) {
         nextQuestion();
@@ -98,10 +90,8 @@ class _QuizScreenState extends State<QuizScreen>
         selectedIndex = null;
         answered = false;
       });
-      _progressController.forward(from: 0.0);
       startTimer();
     } else {
-      // Quiz completed
       timer?.cancel();
       Navigator.pushReplacement(
         context,
@@ -121,7 +111,6 @@ class _QuizScreenState extends State<QuizScreen>
   @override
   void dispose() {
     timer?.cancel();
-    _progressController.dispose();
     super.dispose();
   }
 
@@ -137,9 +126,13 @@ class _QuizScreenState extends State<QuizScreen>
     final q = questions[currentIndex];
     final progress = (currentIndex + 1) / questions.length;
 
-    return WillPopScope(
-      onWillPop: () async {
-        final result = await showDialog<bool>(
+    return PopScope(
+      canPop: false,
+
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) return;
+
+        final bool? confirmed = await showDialog<bool>(
           context: context,
           builder: (context) => AlertDialog(
             title: const Text('Exit Quiz?'),
@@ -161,7 +154,10 @@ class _QuizScreenState extends State<QuizScreen>
             ],
           ),
         );
-        return result ?? false;
+
+        if (confirmed == true) {
+          if (mounted) Navigator.pop(context);
+        }
       },
       child: Scaffold(
         appBar: AppBar(
@@ -187,7 +183,7 @@ class _QuizScreenState extends State<QuizScreen>
             LinearProgressIndicator(
               value: progress,
               minHeight: 6,
-              backgroundColor: theme.colorScheme.surfaceVariant,
+              backgroundColor: theme.colorScheme.surfaceContainerHighest,
               valueColor: AlwaysStoppedAnimation<Color>(
                 theme.colorScheme.primary,
               ),
@@ -199,9 +195,9 @@ class _QuizScreenState extends State<QuizScreen>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // Timer Card
+                    // ... (Timer Card and Question Card remain the same)
                     Card(
-                      color: _getTimerColor().withOpacity(0.1),
+                      color: _getTimerColor().withValues(alpha: .1),
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -247,8 +243,8 @@ class _QuizScreenState extends State<QuizScreen>
                                 vertical: 6,
                               ),
                               decoration: BoxDecoration(
-                                color: theme.colorScheme.primary.withOpacity(
-                                  0.1,
+                                color: theme.colorScheme.primary.withValues(
+                                  alpha: 0.1,
                                 ),
                                 borderRadius: BorderRadius.circular(20),
                               ),
@@ -284,16 +280,16 @@ class _QuizScreenState extends State<QuizScreen>
                       );
                     }),
 
-                    // Explanation (shown after answering)
+                    // ... (Explanation block remains the same)
                     if (answered && q.explanation != null) ...[
                       const SizedBox(height: 16),
                       Card(
-                        color: AppTheme.successColor.withOpacity(0.1),
+                        color: AppTheme.successColor.withValues(alpha: .1),
                         elevation: 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                           side: BorderSide(
-                            color: AppTheme.successColor.withOpacity(0.3),
+                            color: AppTheme.successColor.withValues(alpha: .3),
                             width: 1,
                           ),
                         ),

@@ -19,8 +19,8 @@ class HomeScreen extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              theme.colorScheme.primary.withOpacity(0.1),
-              theme.colorScheme.background,
+              theme.colorScheme.primary.withValues(alpha: .1),
+              theme.colorScheme.surface,
             ],
           ),
         ),
@@ -42,7 +42,7 @@ class HomeScreen extends StatelessWidget {
                       gradient: LinearGradient(
                         colors: [
                           AppTheme.primaryColor,
-                          AppTheme.primaryColor.withOpacity(0.7),
+                          AppTheme.primaryColor.withValues(alpha: .7),
                         ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
@@ -54,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                         Icon(
                           Icons.school,
                           size: 64,
-                          color: Colors.white.withOpacity(0.9),
+                          color: Colors.white.withValues(alpha: .9),
                         ),
                         const SizedBox(height: 16),
                         const Text(
@@ -71,7 +71,7 @@ class HomeScreen extends StatelessWidget {
                           'Test your knowledge across various categories',
                           style: TextStyle(
                             fontSize: 16,
-                            color: Colors.white.withOpacity(0.9),
+                            color: Colors.white.withValues(alpha: .9),
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -130,12 +130,12 @@ class HomeScreen extends StatelessWidget {
 
                 // Info Card
                 Card(
-                  color: AppTheme.secondaryColor.withOpacity(0.1),
+                  color: AppTheme.secondaryColor.withValues(alpha: .1),
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                     side: BorderSide(
-                      color: AppTheme.secondaryColor.withOpacity(0.3),
+                      color: AppTheme.secondaryColor.withValues(alpha: .3),
                       width: 1,
                     ),
                   ),
@@ -242,7 +242,10 @@ class CategoryCard extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             gradient: LinearGradient(
-              colors: [color.withOpacity(0.1), color.withOpacity(0.05)],
+              colors: [
+                color.withValues(alpha: .1),
+                color.withValues(alpha: .05),
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -252,7 +255,7 @@ class CategoryCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.2),
+                  color: color.withValues(alpha: .2),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(icon, color: color, size: 32),
@@ -290,7 +293,7 @@ class CategoryCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.2),
+                  color: color.withValues(alpha: .2),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(Icons.arrow_forward, color: color, size: 24),
